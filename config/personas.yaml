@@ -1,0 +1,154 @@
+# ===========================================================================
+# Terserah - agents that decide for you
+#
+# Everyone says "whatever" when asked what they want. Nobody wants to be the
+# one who picks. But everybody has constraints they keep to themselves.
+#
+# So: one bot per person. They brief it in private. The bots then negotiate in
+# a group chat, each speaking once per round, until a neutral chair calls a
+# decision.
+#
+# Modes:
+#   delegates    - one bot per person, private briefings, roundtable. (this)
+#   shared       - one bot, many users, each picks a persona from below.
+#   per_persona  - one bot token per persona below.
+# ===========================================================================
+mode: delegates
+
+delegates:
+  # The neutral "system" voice. Poses the question, runs the rounds, calls the
+  # verdict. It never sees anyone's briefing.
+  moderator_token: "${TELEGRAM_TOKEN_MAIN}"
+  moderator_name: "Terserah"
+
+  # Upper bound on turns. The loop stops earlier by itself when no viable
+  # option is left to propose, so this is a ceiling, not a fixed count.
+  max_turns: 5
+  # Options the system agent puts on the table each turn. 3 turns x 2 = 6
+  # candidates considered before the shortlist.
+  options_per_turn: 2
+  max_words: 55
+  # Small gap between messages, so a batch reads as people talking.
+  post_delay: 0.4
+
+  # Every agent reply passes a reviewer before it reaches the chat. Catches
+  # shaming, personal jabs, and verbatim leaks of someone's private briefing.
+  review: true
+  review_retries: 1
+
+  restaurants: "data/restaurants.yaml"
+
+  db_path: "data/delegates.sqlite3"
+  # Every turn is recorded here. Read it with gm.py.
+  sessions_db_path: "data/sessions.sqlite3"
+
+  # One bot per person. Create each with @BotFather, then hand that person the
+  # link to their own bot. Add all of them to the group.
+  members:
+    - key: budi
+      name: "Budi"
+      token: "${TELEGRAM_TOKEN_BUDI}"
+    - key: mawar
+      name: "Mawar"
+      token: "${TELEGRAM_TOKEN_MAWAR}"
+    - key: joko
+      name: "Joko"
+      token: "${TELEGRAM_TOKEN_JOKO}"
+    - key: dimas
+      name: "Dimas"
+      token: "${TELEGRAM_TOKEN_DIMAS}"
+
+llm:
+  # Any OpenAI-compatible endpoint: OpenAI, DeepSeek, OpenRouter,
+  # Ollama (http://localhost:11434/v1), LM Studio, vLLM.
+  base_url: "${LLM_BASE_URL}"
+  api_key: "${LLM_API_KEY}"
+  model: "${LLM_MODEL}"
+  temperature: 0.7
+  # Output ceiling per call, not a spend. Thinking mode bills reasoning tokens
+  # against this, so it must be generous or content comes back null.
+  # Measured on a real agent prompt: 93 reasoning tokens, 160 total, 3.5s.
+  max_tokens: 128000
+  # Merged into every request body. Provider quirks live here, not in code.
+  #
+  # SumoPod's DeepSeek V4.1 thinks by default and returns its chain of thought
+  # in reasoning_content, with content=null if the budget runs out mid-thought.
+  # Verified on https://ai.sumopod.com with deepseek-v4.1-flash-1017.
+  extra_body:
+    thinking: true
+    reasoning_effort: high
+
+memory:
+  max_history: 20
+  db_path: "data/memory.sqlite3"
+
+security:
+  # Empty means anyone can talk to these bots. For a private pilot, list the
+  # Telegram user IDs allowed to use them.
+  allowed_user_ids: []
+
+# ---------------------------------------------------------------------------
+# Profile palette. Used by shared and per_persona modes only. In delegates
+# mode each agent's personality comes from its own private briefing instead.
+# ---------------------------------------------------------------------------
+personas:
+  - key: analyst
+    name: "Analyst"
+    emoji: "📊"
+    token: "${TELEGRAM_TOKEN_ANALYST}"
+    description: "Sharp, numbers-first analysis."
+    temperature: 0.3
+    system_prompt: |
+      You are Analyst. You break problems into numbers, assumptions, and
+      falsifiable claims. You lead with the answer, then the reasoning.
+
+      Rules:
+      - State your confidence when you are inferring rather than citing.
+      - If a question needs data you do not have, say what you would need.
+      - Never pad. Short paragraphs, concrete figures, no filler openers.
+
+  - key: coder
+    name: "Coder"
+    emoji: "⌨️"
+    token: "${TELEGRAM_TOKEN_CODER}"
+    description: "Pragmatic engineer, working code over clever code."
+    temperature: 0.2
+    system_prompt: |
+      You are Coder. You write working, readable code and explain only what
+      is non-obvious.
+
+      Rules:
+      - Prefer the boring solution that ships.
+      - Always fence code blocks with a language tag.
+      - When you are unsure about an API, say so instead of inventing one.
+      - Keep prose short. The code is the answer.
+
+  - key: coach
+    name: "Coach"
+    emoji: "🧭"
+    token: "${TELEGRAM_TOKEN_COACH}"
+    description: "Direct thinking partner, asks the question you avoid."
+    temperature: 0.8
+    system_prompt: |
+      You are Coach. You help people think clearly about decisions and habits.
+
+      Rules:
+      - Ask one sharp question before offering advice.
+      - Reflect back what you heard before responding to it.
+      - Do not cheerlead. Warm but honest.
+      - Keep replies conversational and under 120 words unless asked to go deep.
+
+  - key: writer
+    name: "Writer"
+    emoji: "✍️"
+    token: "${TELEGRAM_TOKEN_WRITER}"
+    description: "Cuts ruthlessly, writes like a human."
+    temperature: 0.7
+    system_prompt: |
+      You are Writer. You produce prose that sounds like a person wrote it.
+
+      Rules:
+      - No throat-clearing openers. Start with the point.
+      - Prefer concrete nouns and active verbs.
+      - Cut any sentence that could be deleted without losing meaning.
+      - Match the register of what you're writing for.

@@ -1,0 +1,647 @@
+# The pool the system agent proposes from.
+#
+# REAL Jakarta places, seeded as a starting point. Two caveats you must respect:
+#
+#   1. PRICES ARE ESTIMATES. Jakarta menus move. Verify before a real round.
+#   2. HALAL / PORK TAGS ARE BEST-EFFORT, NOT CERTIFIED.
+#
+# The tagging rule used here: when unsure whether a place serves pork, tag it
+# `pork` anyway - blocking a halal person from a pork kitchen is the safe error.
+# When unsure whether a place is genuinely halal, do NOT tag `halal`, so nobody
+# gets false assurance from it.
+#
+# Verify anything that matters. A wrong allergen tag is the one bug in this
+# project that can actually hurt someone.
+#
+#   python places.py list
+#   python places.py tags
+#   python places.py import data/places.csv     # bulk add
+#   python places.py remove "Name"
+
+restaurants:
+- name: Warteg Kharisma Bahari
+  cuisine: Warteg
+  price: 20000
+  area: Kembangan
+  tags:
+  - halal
+  - budget
+  - smoking
+  - queue
+  - loud
+  region: Jakarta Barat
+- name: Bakso Populer
+  cuisine: Bakso
+  price: 35000
+  area: Thamrin
+  tags:
+  - halal
+  - budget
+  - beef
+  - queue
+  region: Jakarta Pusat
+- name: Bakso Rusuk Samanhudi
+  cuisine: Bakso
+  price: 45000
+  area: Sabang
+  tags:
+  - halal
+  - budget
+  - beef
+  - queue
+  region: Jakarta Pusat
+- name: Nasi Uduk Kebon Kacang
+  cuisine: Indonesian
+  price: 30000
+  area: Tanah Abang
+  tags:
+  - halal
+  - budget
+  - peanuts
+  - eggs
+  - queue
+  region: Jakarta Pusat
+- name: Gado-Gado Boplo
+  cuisine: Indonesian
+  price: 45000
+  area: Menteng
+  tags:
+  - halal
+  - vegetarian
+  - budget
+  - peanuts
+  - quiet
+  region: Jakarta Pusat
+- name: Bakmi GM
+  cuisine: Noodles
+  price: 45000
+  area: Senayan
+  tags:
+  - halal
+  - budget
+  - gluten
+  - eggs
+  region: Jakarta Pusat
+- name: Sate Kambing Jaya Agung
+  cuisine: Satay
+  price: 60000
+  area: Kebayoran
+  tags:
+  - halal
+  - budget
+  - peanuts
+  - beef
+  - smoking
+  region: Jakarta Selatan
+- name: Soto Betawi Haji Husen
+  cuisine: Indonesian
+  price: 50000
+  area: Cikini
+  tags:
+  - halal
+  - budget
+  - dairy
+  - beef
+  - open_late
+  region: Jakarta Pusat
+- name: Warung MJS
+  cuisine: Indonesian
+  price: 55000
+  area: Kuningan
+  tags:
+  - halal
+  - budget
+  - beef
+  - outdoor
+  - queue
+  region: Jakarta Selatan
+- name: Restoran Garuda
+  cuisine: Padang
+  price: 70000
+  area: Sabang
+  tags:
+  - halal
+  - spicy
+  - beef
+  - quiet
+  region: Jakarta Pusat
+- name: Padang Merdeka
+  cuisine: Padang
+  price: 65000
+  area: Kebon Sirih
+  tags:
+  - halal
+  - spicy
+  - beef
+  - budget
+  region: Jakarta Pusat
+- name: Sate Khas Senayan
+  cuisine: Indonesian
+  price: 110000
+  area: Senayan
+  tags:
+  - halal
+  - peanuts
+  - beef
+  - quiet
+  - queue
+  region: Jakarta Pusat
+- name: Bakmi Cong Sim
+  cuisine: Chinese
+  price: 60000
+  area: Mangga Besar
+  tags:
+  - pork
+  - gluten
+  - budget
+  - loud
+  region: Jakarta Barat
+- name: Bakmi Karet Aloi
+  cuisine: Chinese
+  price: 55000
+  area: Kembangan
+  tags:
+  - pork
+  - gluten
+  - budget
+  - far
+  region: Jakarta Barat
+- name: Sushi Tei
+  cuisine: Japanese
+  price: 150000
+  area: Plaza Senayan
+  tags:
+  - seafood
+  - shellfish
+  - quiet
+  - queue
+  region: Jakarta Pusat
+- name: Din Tai Fung
+  cuisine: Chinese
+  price: 180000
+  area: Senayan
+  tags:
+  - pork
+  - gluten
+  - queue
+  - loud
+  region: Jakarta Pusat
+- name: Holywings
+  cuisine: Bar & Grill
+  price: 150000
+  area: Kemang
+  tags:
+  - loud
+  - open_late
+  - splurge
+  - beef
+  - alcohol
+  region: Jakarta Selatan
+- name: Cafe Batavia
+  cuisine: Western
+  price: 250000
+  area: Kota Tua
+  tags:
+  - splurge
+  - quiet
+  - dairy
+  - gluten
+  - far
+  - alcohol
+  region: Jakarta Barat
+- name: Plataran Dharmawangsa
+  cuisine: Indonesian
+  price: 400000
+  area: Dharmawangsa
+  tags:
+  - splurge
+  - quiet
+  - outdoor
+  - dairy
+  - far
+  - alcohol
+  region: Jakarta Selatan
+- name: Gudeg Yu Djum
+  cuisine: Javanese
+  price: 45000
+  area: Menteng
+  tags:
+  - halal
+  - vegetarian
+  - budget
+  - dairy
+  - quiet
+  region: Jakarta Pusat
+- name: Pecel Lele Lela
+  cuisine: Indonesian
+  price: 35000
+  area: Kembangan
+  tags:
+  - halal
+  - budget
+  - spicy
+  - loud
+  - open_late
+  - seafood
+  region: Jakarta Barat
+- name: Martabak Bangka 88
+  cuisine: Street food
+  price: 40000
+  area: Kebon Jeruk
+  tags:
+  - halal
+  - budget
+  - dairy
+  - eggs
+  - gluten
+  - open_late
+  region: Jakarta Barat
+- name: Bubur Ayam Mangga Besar
+  cuisine: Indonesian
+  price: 25000
+  area: Mangga Besar
+  tags:
+  - halal
+  - budget
+  - eggs
+  - open_late
+  - smoking
+  - meat
+  region: Jakarta Barat
+- name: Nasi Padang Sederhana
+  cuisine: Padang
+  price: 55000
+  area: Kembangan
+  tags:
+  - halal
+  - spicy
+  - beef
+  - budget
+  - open_late
+  region: Jakarta Barat
+- name: Mie Ayam Bakso Kembangan
+  cuisine: Noodles
+  price: 30000
+  area: Kembangan
+  tags:
+  - halal
+  - budget
+  - gluten
+  - beef
+  - queue
+  region: Jakarta Barat
+- name: Ayam Geprek Bensu
+  cuisine: Indonesian
+  price: 35000
+  area: Kembangan
+  tags:
+  - halal
+  - budget
+  - spicy
+  - gluten
+  - loud
+  - meat
+  region: Jakarta Barat
+- name: Sushi Groove
+  cuisine: Japanese
+  price: 130000
+  area: Puri Indah
+  tags:
+  - seafood
+  - shellfish
+  - quiet
+  region: Jakarta Barat
+- name: Pepper Lunch
+  cuisine: Japanese
+  price: 120000
+  area: Puri Indah
+  tags:
+  - beef
+  - dairy
+  - loud
+  - queue
+  region: Jakarta Barat
+- name: Kopi Kenangan
+  cuisine: Cafe
+  price: 30000
+  area: Kembangan
+  tags:
+  - halal
+  - budget
+  - dairy
+  - quiet
+  region: Jakarta Barat
+- name: Tahu Sumedang Cikini
+  cuisine: Snacks
+  price: 20000
+  area: Cikini
+  tags:
+  - halal
+  - vegetarian
+  - budget
+  - eggs
+  - outdoor
+  region: Jakarta Pusat
+- name: Warung Tekko
+  cuisine: Sundanese
+  price: 80000
+  area: Senopati
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - spicy
+  - quiet
+- name: Bebek Bengil
+  cuisine: Balinese
+  price: 120000
+  area: Kemang
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - spicy
+  - quiet
+  - queue
+  - meat
+- name: Taliwang Bersaudara
+  cuisine: Lombok
+  price: 70000
+  area: Kemang
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - spicy
+  - budget
+  - meat
+- name: Ayam Bakar Primarasa
+  cuisine: Indonesian
+  price: 60000
+  area: Cilandak
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - spicy
+  - budget
+  - queue
+  - meat
+- name: Bakso Solo Samrat
+  cuisine: Bakso
+  price: 45000
+  area: Fatmawati
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - budget
+  - beef
+  - queue
+- name: Sate Taichan Goreng
+  cuisine: Satay
+  price: 50000
+  area: Kemang
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - spicy
+  - budget
+  - open_late
+  - meat
+- name: Nasi Campur Kenanga
+  cuisine: Indonesian
+  price: 90000
+  area: Kemang
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - quiet
+- name: Bakso Boedjangan
+  cuisine: Bakso
+  price: 45000
+  area: Kebon Jeruk
+  region: Jakarta Barat
+  tags:
+  - halal
+  - budget
+  - beef
+  - queue
+- name: Ayam Penyet Ria
+  cuisine: Indonesian
+  price: 40000
+  area: Kembangan
+  region: Jakarta Barat
+  tags:
+  - halal
+  - budget
+  - spicy
+  - loud
+  - meat
+- name: Bebek Kaleyo
+  cuisine: Indonesian
+  price: 55000
+  area: Kebon Jeruk
+  region: Jakarta Barat
+  tags:
+  - halal
+  - spicy
+  - budget
+  - meat
+- name: Warung Nasi Ibu Imas
+  cuisine: Sundanese
+  price: 50000
+  area: Meruya
+  region: Jakarta Barat
+  tags:
+  - halal
+  - spicy
+  - budget
+  - vegetarian
+- name: HokBen
+  cuisine: Japanese
+  price: 50000
+  area: Puri Indah
+  region: Jakarta Barat
+  tags:
+  - halal
+  - budget
+  - eggs
+  - gluten
+  - queue
+- name: Solaria
+  cuisine: Indonesian
+  price: 60000
+  area: Puri Indah
+  region: Jakarta Barat
+  tags:
+  - halal
+  - budget
+  - gluten
+  - dairy
+- name: Marugame Udon
+  cuisine: Japanese
+  price: 70000
+  area: Puri Indah
+  region: Jakarta Barat
+  tags:
+  - halal
+  - gluten
+  - queue
+- name: Nasi Goreng Kambing Kebon Sirih
+  cuisine: Indonesian
+  price: 45000
+  area: Kebon Sirih
+  region: Jakarta Pusat
+  tags:
+  - halal
+  - budget
+  - spicy
+  - open_late
+  - queue
+  - meat
+- name: Sate Padang Ajo Ramon
+  cuisine: Padang
+  price: 45000
+  area: Kebon Sirih
+  region: Jakarta Pusat
+  tags:
+  - halal
+  - budget
+  - spicy
+  - queue
+  - meat
+- name: Martabak Kubang
+  cuisine: Padang
+  price: 45000
+  area: Sabang
+  region: Jakarta Pusat
+  tags:
+  - halal
+  - budget
+  - dairy
+  - eggs
+  - gluten
+- name: Rumah Makan Sabana
+  cuisine: Padang
+  price: 40000
+  area: Menteng
+  region: Jakarta Pusat
+  tags:
+  - halal
+  - budget
+  - spicy
+  - beef
+- name: Kedai Tiga Nyonya
+  cuisine: Peranakan
+  price: 120000
+  area: Kebon Sirih
+  region: Jakarta Pusat
+  tags:
+  - pork
+  - gluten
+  - quiet
+- name: Union Brasserie
+  cuisine: Western
+  price: 250000
+  area: Senayan
+  region: Jakarta Pusat
+  tags:
+  - splurge
+  - dairy
+  - gluten
+  - alcohol
+  - quiet
+- name: Amuz Gourmet
+  cuisine: French
+  price: 500000
+  area: Senayan
+  region: Jakarta Pusat
+  tags:
+  - splurge
+  - dairy
+  - gluten
+  - alcohol
+  - quiet
+- name: Skye Bar
+  cuisine: Bar & Grill
+  price: 400000
+  area: Thamrin
+  region: Jakarta Pusat
+  tags:
+  - splurge
+  - alcohol
+  - loud
+  - beef
+- name: Bubur Ayam Barito
+  cuisine: Indonesian
+  price: 35000
+  area: Kebayoran
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - budget
+  - eggs
+  - open_late
+  - meat
+- name: BEAU by Talita Setyadi
+  cuisine: Bakery
+  price: 80000
+  area: Senopati
+  region: Jakarta Selatan
+  tags:
+  - dairy
+  - gluten
+  - eggs
+  - quiet
+- name: Bakso Afung
+  cuisine: Bakso
+  price: 60000
+  area: Kemang
+  region: Jakarta Selatan
+  tags:
+  - pork
+  - budget
+  - queue
+- name: Sushi Hiro
+  cuisine: Japanese
+  price: 200000
+  area: Senopati
+  region: Jakarta Selatan
+  tags:
+  - seafood
+  - shellfish
+  - splurge
+  - quiet
+- name: Yoshinoya
+  cuisine: Japanese
+  price: 45000
+  area: Cilandak
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - budget
+  - beef
+  - gluten
+- name: Es Teler 77
+  cuisine: Indonesian
+  price: 35000
+  area: Blok M
+  region: Jakarta Selatan
+  tags:
+  - halal
+  - budget
+  - dairy
+- name: Bakmi Naga
+  cuisine: Chinese
+  price: 55000
+  area: Fatmawati
+  region: Jakarta Selatan
+  tags:
+  - pork
+  - gluten
+  - budget
+- name: Warung Turki by Turkuaz
+  cuisine: Turkish
+  price: 150000
+  area: Kemang
+  region: Jakarta Selatan
+  tags:
+  - splurge
+  - beef
+  - quiet

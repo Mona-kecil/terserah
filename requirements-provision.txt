@@ -1,0 +1,3 @@
+# Only needed for provision.py (BotFather automation). The bot itself does not
+# use these.
+telethon>=1.36

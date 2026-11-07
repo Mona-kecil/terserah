@@ -1,0 +1,13 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.DS_Store
+
+# Runtime state. The restaurant pool in data/ is yours and is tracked.
+data/*.sqlite3
+data/*.sqlite3-journal
+
+# provision.py output
+provisioned.env
+*.session
