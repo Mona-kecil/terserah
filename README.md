@@ -328,6 +328,11 @@ delegates:
 Cost is roughly `turns × (agents × 2 + 2)` calls — the `× 2` is the reviewer.
 Five agents over three turns is about 34 calls.
 
+## Demo
+
+`DEMO.md` has a two-and-a-half minute screen-recording script with a
+shot list and the commands to run before recording.
+
 ## Limits
 
 - The pool is curated by hand. Real live data needs a Places API; the interface
