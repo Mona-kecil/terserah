@@ -104,9 +104,13 @@ advantage. A final constraint pass re-checks the shortlist before it reaches the
 | Inference cost per decision | — | ~US$0.005 (34 model calls) |
 
 **Cost model.** Priced against the 2026 Jakarta minimum wage (UMP DKI Jakarta
-Rp 5,729,876/month ÷ 173 standard hours = **Rp 33,121/hour = Rp 552/minute**). This
-is deliberately the floor: UMP covers entry-level base pay only, so a fully loaded
-cost — BPJS, THR, overhead — runs 1.2–1.3× higher.
+Rp 5,729,876/month ÷ 173 standard hours = **Rp 33,121/hour = Rp 552/minute**). The
+divisor 173 is the statutory one, not our own assumption: 40 hours/week × 52 weeks
+÷ 12 months = 173.33, truncated to 173, and fixed as the monthly-to-hourly divisor
+under Kepmenakertrans No. 102/MEN/VI/2004 Art. 8 (*upah sejam = 1/173 × upah
+sebulan*). So the rate matches how a Jakarta employer actually prices an employee-hour.
+This is also deliberately the floor: UMP covers entry-level base pay only, so a fully
+loaded cost — BPJS, THR, overhead — runs 1.2–1.3× higher.
 
 | | Time | Cost |
 |---|---|---|
